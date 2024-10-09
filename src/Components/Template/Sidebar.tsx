@@ -9,10 +9,9 @@ import ReportIcon from "../../assets/Report.png";
 import UtilitiesIcon from "../../assets/Utlities.png";
 import SetupIcon from "../../assets/Setup.png";
 
-// Define the type for each menu item
 interface MenuItem {
   label: string;
-  icon: string; // Changed the type to string to handle image imports
+  icon: string;
   link: string;
 }
 
@@ -44,7 +43,7 @@ const Sidebar: React.FC = () => {
               index === selected ? 'bg-white text-gray-800' : ''
             }`}
           >
-            <img className="mr-3" src={item.icon} alt={item.label} /> {/* Image src and alt attribute for accessibility */}
+            <img className="mr-3" src={item.icon} alt={item.label} /> 
             <span>{item.label}</span>
           </div>
         </Link>
