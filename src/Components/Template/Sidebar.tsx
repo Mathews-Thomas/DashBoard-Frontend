@@ -39,12 +39,12 @@ const Sidebar: React.FC = () => {
               navigate(item.link);
               setSelected(index);
             }}
-            className={`flex items-center py-4 px-6 cursor-pointer hover:bg-gray-400 hover:text-black ${
+            className={`flex items-center py-6 px-6 cursor-pointer hover:bg-gray-400 hover:text-black ${
               index === selected ? 'bg-white text-gray-800' : ''
             }`}
           >
-            <img className="mr-3" src={item.icon} alt={item.label} /> 
-            <span>{item.label}</span>
+            <img className="mr-3 w-8" src={item.icon} alt={item.label} /> 
+            <p>{item.label}</p>
           </div>
         </Link>
       ))}

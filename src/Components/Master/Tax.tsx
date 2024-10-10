@@ -35,35 +35,36 @@ const Tax: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg border-2 mx-4 my-7">
-      <h3 className="text-lg font-semibold mb-4">Tax on Tariff</h3>
+    <div className="p-4 bg-white shadow-md rounded-lg border border-[#DDE3EC] mx-4 my-4">
+      <h3 className="text-md font-semibold mb-4 text-gray-800">Tax on Tariff</h3>
 
       {/* Table Header */}
-      <div className="grid grid-cols-12 gap-4 mb-4 bg-[#9EDEE0] rounded-md p-2">
-        <div className="col-span-2">Name</div>
-        <div className="col-span-5 text-center">Select Slab Tax or Fixed Tax for Room</div>
-        <div className="col-span-4 text-center">Select Slab Tax or Fixed Tax for Extra Bed</div>
-        <div className="col-span-1 text-center">Aft Disc</div>
+      <div className="grid grid-cols-12 gap-1 mb-4 bg-[#9EDEE0] rounded-md p-2 text-sm">
+        <div className="col-span-2 text-sm font-semibold text-left text-[#565E83]">Name</div>
+        <div className="col-span-5 text-sm font-semibold text-center text-[#565E83]">Select Slab Tax or Fixed Tax for Room</div>
+        <div className="col-span-4 text-sm font-semibold text-center text-[#565E83]">Select Slab Tax or Fixed Tax for Extra Bed</div>
+        <div className="col-span-1 text-sm font-semibold text-center text-[#565E83]">Aft Disc</div>
       </div>
 
       {/* Table Body */}
-      <div className="grid grid-cols-12 gap-4 items-center mb-4">
+      <div className="grid grid-cols-12 gap-1 items-center mb-4">
         {/* Name */}
-        <div className="col-span-2">
-          <p>CGST</p>
+        <div className="col-span-2  p-2 text-[#4E598D] text-sm font-semibold rounded-l-md flex items-center justify-between">
+          CGST
+          <span className="text-[#565E83] text-lg">{'>'}</span>
         </div>
 
         {/* Slab/Fixed Tax for Room */}
         <div className="col-span-5">
-          <div className="flex space-x-4 mb-4">
+          <div className="flex justify-center space-x-2 mb-2">
             <button
-              className={`px-3 py-1 rounded ${taxTypeRoom === 'slab' ? 'bg-[#565E83] text-white' : 'bg-gray-100'}`}
+              className={`px-4 py-2 rounded-l-md ${taxTypeRoom === 'slab' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'}`}
               onClick={() => handleTaxTypeChangeRoom('slab')}
             >
               Slab Tax
             </button>
             <button
-              className={`px-3 py-1 rounded ${taxTypeRoom === 'fixed' ? 'bg-[#565E83] text-white' : 'bg-gray-100'}`}
+              className={`px-4 py-2 rounded-r-md ${taxTypeRoom === 'fixed' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'}`}
               onClick={() => handleTaxTypeChangeRoom('fixed')}
             >
               Fixed Tax
@@ -77,29 +78,41 @@ const Tax: React.FC = () => {
                 <div key={index} className="grid grid-cols-12 gap-2 items-center">
                   <input
                     type="text"
-                    className="col-span-2 border rounded p-2"
+                    className="col-span-2 border border-gray-300 rounded p-2 text-sm"
                     value={row.from}
                     placeholder="From"
                   />
                   <input
                     type="text"
-                    className="col-span-2 border rounded p-2"
+                    className="col-span-2 border border-gray-300 rounded p-2 text-sm"
                     value={row.to}
                     placeholder="To"
                   />
-                  <div className="col-span-2 flex items-center">
+                  <div className="col-span-2 flex items-center space-x-1">
                     <input
                       type="text"
-                      className="border rounded p-2 w-full"
+                      className="border border-gray-300 rounded p-2 text-sm w-full"
                       value={row.value}
                       placeholder={row.type === '%' ? "%" : "₹"}
                     />
+                    <button className={`text-sm ${row.type === '%' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'} border border-gray-300 rounded p-2`}>%</button>
+                    <button className={`text-sm ${row.type === '₹' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'} border border-gray-300 rounded p-2`}>₹</button>
+                  </div>
+
+                  {/* Delete Button */}
+                  <div className="col-span-1">
+                    <button
+                      className="text-white bg-red-500 p-2 rounded-md"
+                      onClick={() => removeRoomTaxRow(index)}
+                    >
+                      <MdDelete size={18} />
+                    </button>
                   </div>
 
                   {/* Action Dropdown */}
                   <div className="col-span-1 relative">
                     <button
-                      className="text-gray-500 hover:text-gray-700"
+                      className={`text-white bg-[#565E83] p-2 rounded-md ${dropdownOpen == index ?` bg-white text-[#565E83] border-2 border-[#565E83]`:``}`}
                       onClick={() => toggleDropdown(index)}
                     >
                       <FiMoreVertical size={20} />
@@ -125,12 +138,6 @@ const Tax: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <button
-                className="mt-2 bg-[#565E83] text-white px-4 py-2 rounded"
-                onClick={addNewRoomTaxRow}
-              >
-                Add Row
-              </button>
             </div>
           )}
 
@@ -139,7 +146,7 @@ const Tax: React.FC = () => {
             <div className="mt-4">
               <input
                 type="text"
-                className="border rounded p-2 w-full"
+                className="border border-gray-300 rounded p-2 w-full text-sm"
                 placeholder="Enter Fixed Tax for Room"
               />
             </div>
@@ -148,15 +155,15 @@ const Tax: React.FC = () => {
 
         {/* Slab/Fixed Tax for Extra Bed */}
         <div className="col-span-4">
-          <div className="flex space-x-4 mb-4">
+          <div className="flex justify-center space-x-2 mb-2">
             <button
-              className={`px-3 py-1 rounded ${taxTypeBed === 'slab' ? 'bg-[#565E83] text-white' : 'bg-gray-100'}`}
+              className={`px-4 py-2 rounded-l-md ${taxTypeBed === 'slab' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'}`}
               onClick={() => handleTaxTypeChangeBed('slab')}
             >
               Slab Tax
             </button>
             <button
-              className={`px-3 py-1 rounded ${taxTypeBed === 'fixed' ? 'bg-[#565E83] text-white' : 'bg-gray-100'}`}
+              className={`px-4 py-2 rounded-r-md ${taxTypeBed === 'fixed' ? 'bg-[#565E83] text-white' : 'bg-[#F9F9FB]'}`}
               onClick={() => handleTaxTypeChangeBed('fixed')}
             >
               Fixed Tax
@@ -168,8 +175,10 @@ const Tax: React.FC = () => {
             <div className="mt-4">
               <input
                 type="text"
-                className="border rounded p-2 w-full"
-                placeholder="Enter Slab Tax for Extra Bed"
+                className="border border-gray-300 rounded p-2 w-full text-sm"
+                placeholder="Tax Rate"
+                value="% 6.6"
+                readOnly
               />
             </div>
           )}
@@ -179,7 +188,7 @@ const Tax: React.FC = () => {
             <div className="mt-4">
               <input
                 type="text"
-                className="border rounded p-2 w-full"
+                className="border border-gray-300 rounded p-2 w-full text-sm"
                 placeholder="Enter Fixed Tax for Extra Bed"
               />
             </div>
@@ -187,10 +196,10 @@ const Tax: React.FC = () => {
         </div>
 
         {/* Aft Disc Checkbox */}
-        <div className="col-span-1 text-center">
+        <div className="col-span-1 flex justify-center items-center">
           <input
             type="checkbox"
-            className="form-checkbox"
+            className="form-checkbox h-5 w-5"
             checked={aftDiscount}
             onChange={() => setAftDiscount(!aftDiscount)}
           />

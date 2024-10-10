@@ -99,7 +99,7 @@ const RoomType: React.FC = () => {
         <div className='flex  gap-6 items-center'>
           <label className="block text-xs text-gray-600 mb-1">Select Room Type Color</label>
           <div className='flex items-center '>
-           <div className='flex items-center gap-2 border-2 '>
+           <div className='flex items-center gap-2 border-2 px-4 pr-0 rounded-md'>
            <span><FaPaintbrush  className='text-black hover:cursor-pointer '/></span>
            <input
         type="color"
